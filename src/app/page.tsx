@@ -49,14 +49,14 @@ export default function Home() {
       </nav>
 
       {/* Full Width Video Banner */}
-      <section className="relative pt-20 w-full">
-        <div className="w-full h-[50vh] md:h-[60vh] overflow-hidden">
+      <section className="relative pt-16 w-full bg-[#020617]">
+        <div className="w-full aspect-video max-h-[70vh]">
           <video 
             autoPlay 
             loop 
             muted 
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           >
             <source src="/hone-labs-hero.mp4" type="video/mp4" />
           </video>
