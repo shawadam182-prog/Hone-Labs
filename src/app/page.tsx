@@ -12,6 +12,7 @@ import {
   CheckCircle,
   Play
 } from 'lucide-react';
+import ContactForm from '@/components/ContactForm';
 
 // Animation variants
 const fadeInUp = {
@@ -286,31 +287,35 @@ export default function Home() {
 
       {/* CTA Section */}
       <section id="contact" className="py-24 px-6">
-        <motion.div 
-          className="max-w-3xl mx-auto text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-            Ready to sharpen your edge?
-          </h2>
-          <p className="text-xl text-zinc-400 mb-10">
-            Let&apos;s talk about how Hone Labs can transform your sales team.
+        <div className="max-w-5xl mx-auto">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+              Ready to sharpen your edge?
+            </h2>
+            <p className="text-xl text-zinc-400">
+              Let&apos;s talk about how Hone Labs can transform your sales team.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="max-w-2xl mx-auto p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <ContactForm />
+          </motion.div>
+
+          <p className="text-zinc-500 text-sm text-center mt-6">
+            Or email us directly at hello@honelabs.io
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a 
-              href="mailto:hello@honelabs.io" 
-              className="group flex items-center gap-2 px-8 py-4 bg-violet-600 hover:bg-violet-500 text-white font-medium rounded-lg transition glow-hover text-lg"
-            >
-              Get in Touch
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition" />
-            </a>
-          </div>
-          <p className="text-zinc-500 text-sm mt-6">
-            hello@honelabs.io
-          </p>
-        </motion.div>
+        </div>
       </section>
 
       {/* Footer */}
