@@ -443,6 +443,42 @@ export default function PlatformSection() {
           </div>
         </div>
 
+        {/* Platform Video Showcase */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-20"
+        >
+          <div className="text-center mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              See the Platform in Action
+            </h3>
+            <p className="text-zinc-400">
+              A quick tour of what Hone Hub can do for your team
+            </p>
+          </div>
+          
+          <div className="relative max-w-4xl mx-auto">
+            {/* Video glow effect */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-violet-600/20 via-cyan-500/20 to-violet-600/20 rounded-3xl blur-2xl opacity-60" />
+            
+            {/* Video container */}
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/90">
+              <video
+                className="w-full aspect-video"
+                controls
+                poster="/hone-hub-poster.jpg"
+                preload="metadata"
+              >
+                <source src="/hone-hub-video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Methodologies */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
