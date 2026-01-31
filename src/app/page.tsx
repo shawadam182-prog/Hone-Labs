@@ -115,26 +115,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Problem Section */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto">
-          <motion.div 
-            className="p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-lg text-zinc-300 leading-relaxed">
-              <span className="text-white font-semibold">Hiring a VP of Sales is expensive and risky.</span>{' '}
-              You need someone who&apos;s built revenue engines before, but a bad hire sets you back 12+ months. 
-              We give you that senior expertise — strategy, process, coaching — without the six-figure salary and long ramp time.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Services Section */}
-      <section id="services" className="py-24 px-6">
+      <section id="services" className="py-12 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             className="text-center mb-16"
@@ -222,143 +204,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Approach Section */}
-      <section id="approach" className="py-24 px-6 bg-zinc-900/30">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              How We Work
-            </h2>
-            <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-              Embedded with your team, not observing from the sidelines
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                step: '01',
-                title: 'Diagnose',
-                description: 'We audit your current state — pipeline, process, people, tools. No assumptions, just data.'
-              },
-              {
-                step: '02',
-                title: 'Design',
-                description: 'We build the playbook — strategy, process, metrics. Clear deliverables, not vague recommendations.'
-              },
-              {
-                step: '03',
-                title: 'Deploy',
-                description: 'We implement alongside your team. Training, coaching, iteration until it sticks.'
-              }
-            ].map((phase, i) => (
-              <motion.div 
-                key={phase.step}
-                className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <div className="text-6xl font-bold text-violet-500/20 mb-4">{phase.step}</div>
-                <h3 className="text-xl font-bold text-white mb-2">{phase.title}</h3>
-                <p className="text-zinc-400">{phase.description}</p>
-              </motion.div>
-            ))}
+      {/* How We Work + Engagement - Combined & Compact */}
+      <section id="approach" className="py-12 px-6 bg-zinc-900/30">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            {/* Process Steps */}
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-6">How We Work</h2>
+              <div className="space-y-4">
+                {[
+                  { step: '01', title: 'Diagnose', desc: 'Audit pipeline, process, people, tools.' },
+                  { step: '02', title: 'Design', desc: 'Build strategy, process, metrics.' },
+                  { step: '03', title: 'Deploy', desc: 'Implement with training & coaching.' },
+                ].map((phase) => (
+                  <div key={phase.step} className="flex items-center gap-4">
+                    <span className="text-2xl font-bold text-violet-500/40">{phase.step}</span>
+                    <div>
+                      <h3 className="font-bold text-white">{phase.title}</h3>
+                      <p className="text-sm text-zinc-400">{phase.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Engagement Options */}
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-white mb-6">Engagement Options</h2>
+              <div className="p-5 rounded-xl bg-zinc-800/50 border border-zinc-700">
+                <div className="flex items-center gap-3 mb-2">
+                  <Calendar className="w-5 h-5 text-violet-400" />
+                  <h3 className="font-bold text-white">Project-Based</h3>
+                  <span className="text-xs text-zinc-500 ml-auto">4-12 weeks</span>
+                </div>
+                <p className="text-sm text-zinc-400">GTM strategy, sales process redesign, hiring sprint.</p>
+              </div>
+              <div className="p-5 rounded-xl bg-violet-900/20 border border-violet-500/30">
+                <div className="flex items-center gap-3 mb-2">
+                  <Phone className="w-5 h-5 text-violet-400" />
+                  <h3 className="font-bold text-white">Fractional Leadership</h3>
+                  <span className="text-xs text-violet-300 ml-auto">Ongoing</span>
+                </div>
+                <p className="text-sm text-zinc-400">Part-time sales leadership. Strategy, coaching, accountability.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Engagement Models */}
-      <section className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              Flexible Engagement
-            </h2>
-            <p className="text-xl text-zinc-400">
-              From quick fixes to embedded leadership
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <motion.div 
-              className="p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <Calendar className="w-8 h-8 text-violet-400 mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Project-Based</h3>
+      {/* CTA Section - Compact */}
+      <section id="contact" className="py-12 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            <div>
+              <h2 className="text-3xl font-bold text-white mb-4">
+                Let&apos;s talk revenue
+              </h2>
               <p className="text-zinc-400 mb-4">
-                Specific deliverables with a clear scope. GTM strategy, sales process redesign, hiring sprint.
+                No pitch deck. Just a conversation about where you are and where you want to be.
               </p>
-              <p className="text-sm text-zinc-500">Typical: 4-12 weeks</p>
-            </motion.div>
-
-            <motion.div 
-              className="p-8 rounded-2xl bg-gradient-to-br from-violet-900/30 to-violet-900/10 border border-violet-500/20 glow"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <Phone className="w-8 h-8 text-violet-400 mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Fractional Leadership</h3>
-              <p className="text-zinc-400 mb-4">
-                Part-time sales leadership embedded with your team. Strategy, coaching, accountability — without the full-time cost.
+              <p className="text-zinc-500 text-sm">
+                Or email: hello@honelabs.io
               </p>
-              <p className="text-sm text-violet-300">Typical: 2-4 days/month ongoing</p>
-            </motion.div>
+            </div>
+            <div className="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800">
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section id="contact" className="py-24 px-6 bg-zinc-900/30">
-        <div className="max-w-5xl mx-auto">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Let&apos;s talk about your revenue
-            </h2>
-            <p className="text-xl text-zinc-400">
-              No pitch deck. Just a conversation about where you are and where you want to be.
-            </p>
-          </motion.div>
-
-          <motion.div
-            className="max-w-2xl mx-auto p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <ContactForm />
-          </motion.div>
-
-          <p className="text-zinc-500 text-sm text-center mt-6">
-            Or email directly at hello@honelabs.io
-          </p>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-6 border-t border-zinc-800">
+      {/* Footer - Minimal */}
+      <footer className="py-6 px-6 border-t border-zinc-800">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <Logo white className="scale-75" />
           <p className="text-zinc-500 text-sm">
