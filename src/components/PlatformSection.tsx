@@ -17,7 +17,18 @@ import {
   ExternalLink,
   Radio,
   Target,
-  Users
+  Users,
+  Compass,
+  Package,
+  GitBranch,
+  ListChecks,
+  Search,
+  Handshake,
+  Swords,
+  ShieldCheck,
+  Mail,
+  UserCircle,
+  Hexagon
 } from 'lucide-react';
 
 // Animated particle/orb component
@@ -83,8 +94,8 @@ const AnimatedGrid = () => (
   </div>
 );
 
-// Feature card with glass morphism
-const FeatureCard = ({ 
+// Playbook card with glass morphism
+const PlaybookCard = ({ 
   icon: Icon, 
   title, 
   description, 
@@ -105,24 +116,24 @@ const FeatureCard = ({
       ref={ref}
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ duration: 0.6, delay: index * 0.08 }}
       className="group relative"
     >
       {/* Hover glow effect */}
       <div className={`absolute -inset-0.5 ${gradient} rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500`} />
       
-      <div className="relative p-6 rounded-2xl bg-zinc-900/60 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-500 h-full overflow-hidden">
+      <div className="relative p-5 rounded-2xl bg-zinc-900/60 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-500 h-full overflow-hidden">
         {/* Background shimmer */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
         />
         
         {/* Icon container */}
-        <div className={`relative p-3 rounded-xl ${gradient} w-fit mb-4`}>
-          <Icon className="w-6 h-6 text-white" />
+        <div className={`relative p-2.5 rounded-xl ${gradient} w-fit mb-3`}>
+          <Icon className="w-5 h-5 text-white" />
         </div>
         
-        <h3 className="text-lg font-bold text-white mb-2 group-hover:text-violet-200 transition-colors">
+        <h3 className="text-base font-bold text-white mb-1.5 group-hover:text-violet-200 transition-colors">
           {title}
         </h3>
         <p className="text-zinc-400 text-sm leading-relaxed">
@@ -132,6 +143,30 @@ const FeatureCard = ({
     </motion.div>
   );
 };
+
+// Hone Hub Logo/Wordmark component
+const HoneHubWordmark = () => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5 }}
+    className="inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-violet-500/10 via-cyan-500/10 to-violet-500/10 border border-violet-500/20 mb-8"
+  >
+    <div className="relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-500 to-cyan-500 rounded-xl blur-sm opacity-60" />
+      <div className="relative p-2 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500">
+        <Hexagon className="w-5 h-5 text-white" />
+      </div>
+    </div>
+    <div className="flex flex-col">
+      <span className="text-xs text-zinc-500 uppercase tracking-wider leading-none">Powered by</span>
+      <span className="text-lg font-bold bg-gradient-to-r from-violet-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent leading-tight">
+        The Hone Hub
+      </span>
+    </div>
+  </motion.div>
+);
 
 // Animated mockup of the Hone Hub UI
 const HoneHubMockup = () => {
@@ -288,9 +323,9 @@ const HoneHubMockup = () => {
                 <h4 className="text-sm font-medium text-white mb-4">Your Playbooks</h4>
                 
                 {[
-                  { title: 'Discovery Framework', icon: Target, color: 'violet' },
-                  { title: 'Objection Handling', icon: Shield, color: 'cyan' },
-                  { title: 'Closing Techniques', icon: CheckCircle, color: 'emerald' },
+                  { title: 'Discovery Framework', icon: Search, color: 'violet' },
+                  { title: 'Competitor Battlecards', icon: Swords, color: 'cyan' },
+                  { title: 'Objection Handling', icon: ShieldCheck, color: 'emerald' },
                 ].map((item, i) => (
                   <motion.div
                     key={item.title}
@@ -299,8 +334,8 @@ const HoneHubMockup = () => {
                     transition={{ delay: i * 0.1 }}
                     className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-white/5 hover:border-white/10 transition-all cursor-pointer group"
                   >
-                    <div className={`p-2 rounded-lg bg-${item.color}-500/20`}>
-                      <item.icon className={`w-4 h-4 text-${item.color}-400`} />
+                    <div className={`p-2 rounded-lg ${item.color === 'violet' ? 'bg-violet-500/20' : item.color === 'cyan' ? 'bg-cyan-500/20' : 'bg-emerald-500/20'}`}>
+                      <item.icon className={`w-4 h-4 ${item.color === 'violet' ? 'text-violet-400' : item.color === 'cyan' ? 'text-cyan-400' : 'text-emerald-400'}`} />
                     </div>
                     <span className="text-sm text-zinc-300 group-hover:text-white transition-colors">{item.title}</span>
                     <ArrowRight className="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 ml-auto transition-colors" />
@@ -376,42 +411,67 @@ export default function PlatformSection() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  const features = [
+  // 10 Playbook sections
+  const playbookSections = [
     {
-      icon: Mic,
-      title: 'Live Copilot',
-      description: 'Real-time AI coaching during your calls. Get prompts, objection handlers, and discovery questions — exactly when you need them.',
+      icon: Compass,
+      title: 'Mission & Values',
+      description: 'Align every rep to your company\'s core principles',
       gradient: 'bg-gradient-to-br from-violet-600 to-violet-500',
     },
     {
-      icon: Brain,
-      title: 'AI Roleplay',
-      description: 'Practice against AI personas that push back, challenge, and prepare you for any scenario. Get better before the real thing.',
+      icon: Package,
+      title: 'Portfolio Overview',
+      description: 'Product knowledge at their fingertips',
       gradient: 'bg-gradient-to-br from-cyan-600 to-cyan-500',
     },
     {
-      icon: BookOpen,
-      title: 'Knowledge Hub',
-      description: 'All your playbooks, battlecards, and scripts in one searchable place. Ask questions in natural language.',
+      icon: GitBranch,
+      title: 'Sales Methodology',
+      description: 'Your chosen framework, embedded in every interaction',
       gradient: 'bg-gradient-to-br from-emerald-600 to-emerald-500',
     },
     {
-      icon: FileText,
-      title: 'Post-Call Packages',
-      description: 'Automated follow-up generation. Turn call insights into personalized proposals, summaries, and next steps.',
+      icon: ListChecks,
+      title: 'Sales Process',
+      description: 'Stage-by-stage guidance for consistent execution',
       gradient: 'bg-gradient-to-br from-amber-600 to-amber-500',
     },
     {
-      icon: Layers,
-      title: '9 Methodologies Built-In',
-      description: 'SPICED, MEDDPICC, Challenger, SPIN, and more — all integrated into coaching and roleplay sessions.',
+      icon: Search,
+      title: 'Discovery Framework',
+      description: 'Structured questions that uncover real pain',
       gradient: 'bg-gradient-to-br from-rose-600 to-rose-500',
     },
     {
-      icon: Users,
-      title: 'Team Analytics',
-      description: 'See skill gaps, track improvement, and coach smarter with insights across your entire team.',
+      icon: Handshake,
+      title: 'Mutual Success Plan',
+      description: 'Collaborative roadmaps that close deals',
       gradient: 'bg-gradient-to-br from-purple-600 to-purple-500',
+    },
+    {
+      icon: Swords,
+      title: 'Competitor Battlecards',
+      description: 'Kill shots and win strategies for every rival',
+      gradient: 'bg-gradient-to-br from-red-600 to-red-500',
+    },
+    {
+      icon: ShieldCheck,
+      title: 'Objection Handling',
+      description: 'Psychological reframes for common hurdles',
+      gradient: 'bg-gradient-to-br from-orange-600 to-orange-500',
+    },
+    {
+      icon: Mail,
+      title: 'Outreach Scripts',
+      description: 'Proven messaging for cold and warm outreach',
+      gradient: 'bg-gradient-to-br from-teal-600 to-teal-500',
+    },
+    {
+      icon: UserCircle,
+      title: 'ICP & Personas',
+      description: 'Know exactly who you\'re selling to',
+      gradient: 'bg-gradient-to-br from-indigo-600 to-indigo-500',
     },
   ];
 
@@ -440,15 +500,8 @@ export default function PlatformSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-sm mb-6"
-          >
-            <Zap className="w-4 h-4" />
-            Included in Select Engagements
-          </motion.div>
+          {/* Hone Hub Wordmark/Branding */}
+          <HoneHubWordmark />
 
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
             Strategy{' '}
@@ -463,27 +516,55 @@ export default function PlatformSection() {
             </span>
           </h2>
 
-          <p className="text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            We don&apos;t just advise — we equip.{' '}
-            <span className="text-white font-medium">Meet Hone Hub</span>, 
-            the AI-powered platform that makes your sales transformation stick.
+          <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+            Your entire sales playbook, embedded in an AI-powered platform.
+            Every rep gets instant access to the knowledge they need — exactly when they need it.
           </p>
         </motion.div>
 
-        {/* Two-column layout: Features + Mockup */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Feature cards */}
-          <div className="grid sm:grid-cols-2 gap-4">
-            {features.map((feature, i) => (
-              <FeatureCard key={feature.title} {...feature} index={i} />
-            ))}
+        {/* Playbook Section Title */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-10"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-sm mb-4">
+            <BookOpen className="w-4 h-4" />
+            Complete Playbook System
           </div>
+          <h3 className="text-2xl md:text-3xl font-bold text-white">
+            10 Modules. One Source of Truth.
+          </h3>
+        </motion.div>
 
-          {/* Interactive mockup */}
-          <div className="lg:pl-8">
+        {/* Playbook cards - 2 columns of 5 */}
+        <div className="grid md:grid-cols-2 gap-4 mb-16">
+          {playbookSections.map((section, i) => (
+            <PlaybookCard key={section.title} {...section} index={i} />
+          ))}
+        </div>
+
+        {/* Interactive mockup */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16"
+        >
+          <div className="text-center mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              AI-Powered Delivery
+            </h3>
+            <p className="text-zinc-400">
+              Your playbook comes alive through Live Copilot, AI Roleplay, and instant search
+            </p>
+          </div>
+          <div className="max-w-2xl mx-auto">
             <HoneHubMockup />
           </div>
-        </div>
+        </motion.div>
 
         {/* Platform Video Showcase */}
         <motion.div
