@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import ContactForm from '@/components/ContactForm';
 import Logo from '@/components/Logo';
+import PlatformSection from '@/components/PlatformSection';
 
 // Animation variants
 const fadeInUp = {
@@ -42,6 +43,7 @@ export default function Home() {
           <div className="hidden md:flex items-center gap-8">
             <a href="#services" className="text-sm text-zinc-400 hover:text-white transition">Services</a>
             <a href="#approach" className="text-sm text-zinc-400 hover:text-white transition">Approach</a>
+            <a href="#platform" className="text-sm text-zinc-400 hover:text-white transition">Platform</a>
             <a href="#contact" className="text-sm text-zinc-400 hover:text-white transition">Contact</a>
           </div>
           <div className="flex items-center gap-3">
@@ -85,6 +87,13 @@ export default function Home() {
                   className="text-base text-zinc-400 hover:text-white transition py-2"
                 >
                   Approach
+                </a>
+                <a 
+                  href="#platform" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-base text-zinc-400 hover:text-white transition py-2"
+                >
+                  Platform
                 </a>
                 <a 
                   href="#contact" 
@@ -302,6 +311,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Platform Section */}
+      <PlatformSection />
 
       {/* CTA Section - Compact */}
       <section id="contact" className="py-12 px-6">
