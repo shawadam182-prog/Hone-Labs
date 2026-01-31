@@ -48,10 +48,9 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden min-h-[100vh] flex items-center">
-        {/* Video Background - FULL IMPACT */}
-        <div className="absolute inset-0 z-0">
+      {/* Full Width Video Banner */}
+      <section className="relative pt-20 w-full">
+        <div className="w-full h-[50vh] md:h-[60vh] overflow-hidden">
           <video 
             autoPlay 
             loop 
@@ -61,11 +60,13 @@ export default function Home() {
           >
             <source src="/hone-labs-hero.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f]/30 via-transparent to-[#0a0a0f]/90" />
         </div>
-        
+      </section>
+
+      {/* Hero Content Section */}
+      <section className="relative py-20 px-6 overflow-hidden">
         {/* Background glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-violet-600/30 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-violet-600/20 rounded-full blur-[120px] pointer-events-none" />
         
         <motion.div 
           className="max-w-5xl mx-auto text-center relative z-10"
@@ -112,44 +113,6 @@ export default function Home() {
             </a>
           </motion.div>
         </motion.div>
-      </section>
-
-      {/* Video Showcase Section */}
-      <section className="py-20 px-6 bg-gradient-to-b from-[#0a0a0f] to-zinc-900/50">
-        <div className="max-w-6xl mx-auto">
-          <motion.div 
-            className="text-center mb-10"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Sales Intelligence, <span className="gradient-text">Engineered</span>
-            </h2>
-            <p className="text-lg text-zinc-400">
-              Watch how we transform sales teams with AI-powered strategy
-            </p>
-          </motion.div>
-          
-          <motion.div
-            className="relative rounded-2xl overflow-hidden border border-violet-500/30 shadow-2xl shadow-violet-500/20"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              controls
-              className="w-full aspect-video"
-            >
-              <source src="/hone-labs-hero.mp4" type="video/mp4" />
-            </video>
-          </motion.div>
-        </div>
       </section>
 
       {/* Problem Section */}
