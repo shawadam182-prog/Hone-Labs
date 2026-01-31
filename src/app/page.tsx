@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Target, 
   Users, 
@@ -12,7 +13,9 @@ import {
   Lightbulb,
   Rocket,
   Calendar,
-  Phone
+  Phone,
+  Menu,
+  X
 } from 'lucide-react';
 import ContactForm from '@/components/ContactForm';
 import Logo from '@/components/Logo';
@@ -28,6 +31,8 @@ const stagger = {
 };
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <main className="min-h-screen bg-[#0a0a0f] noise grid-pattern">
       {/* Navigation */}
@@ -39,13 +44,59 @@ export default function Home() {
             <a href="#approach" className="text-sm text-zinc-400 hover:text-white transition">Approach</a>
             <a href="#contact" className="text-sm text-zinc-400 hover:text-white transition">Contact</a>
           </div>
-          <a 
-            href="#contact"
-            className="px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-lg transition"
-          >
-            Let&apos;s Talk
-          </a>
+          <div className="flex items-center gap-3">
+            <a 
+              href="#contact"
+              className="px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-lg transition"
+            >
+              Let&apos;s Talk
+            </a>
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-zinc-400 hover:text-white transition"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
+        
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-[#0a0a0f]/95 backdrop-blur-xl border-t border-white/5"
+            >
+              <div className="px-6 py-4 flex flex-col gap-4">
+                <a 
+                  href="#services" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-base text-zinc-400 hover:text-white transition py-2"
+                >
+                  Services
+                </a>
+                <a 
+                  href="#approach" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-base text-zinc-400 hover:text-white transition py-2"
+                >
+                  Approach
+                </a>
+                <a 
+                  href="#contact" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-base text-zinc-400 hover:text-white transition py-2"
+                >
+                  Contact
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Full Width Video Banner */}
@@ -264,7 +315,7 @@ export default function Home() {
                 No pitch deck. Just a conversation about where you are and where you want to be.
               </p>
               <p className="text-zinc-500 text-sm">
-                Or email: hello@honelabs.io
+                Or email: <a href="mailto:hello@honelabs.io" className="text-violet-400 hover:text-violet-300 transition">hello@honelabs.io</a>
               </p>
             </div>
             <div className="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800">

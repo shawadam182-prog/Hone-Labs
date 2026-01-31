@@ -8,12 +8,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Hone Labs | AI-Powered Sales Performance",
-  description: "Sharpen your sales edge with AI-powered training, coaching, and live call assistance. Built for teams that want to win.",
-  keywords: ["sales training", "AI coaching", "sales enablement", "live copilot", "sales performance"],
+  title: "Hone Labs | Fractional Sales Leadership",
+  description: "Senior sales leadership without the full-time commitment. We help startups and scale-ups build, fix, and accelerate their revenue engines.",
+  keywords: ["fractional sales leader", "sales consultancy", "GTM strategy", "revenue operations", "sales process design"],
   openGraph: {
-    title: "Hone Labs | AI-Powered Sales Performance",
-    description: "Sharpen your sales edge with AI-powered training, coaching, and live call assistance.",
+    title: "Hone Labs | Fractional Sales Leadership",
+    description: "Senior sales leadership without the full-time commitment. We help startups and scale-ups build, fix, and accelerate their revenue engines.",
     type: "website",
   },
 };
