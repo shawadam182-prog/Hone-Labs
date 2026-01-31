@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { 
-  Sparkles, 
   Target, 
   Users, 
   TrendingUp,
@@ -16,6 +15,7 @@ import {
   Phone
 } from 'lucide-react';
 import ContactForm from '@/components/ContactForm';
+import Logo from '@/components/Logo';
 
 // Animation variants
 const fadeInUp = {
@@ -33,12 +33,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#0a0a0f]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-xl font-bold text-white">Hone Labs</span>
-          </div>
+          <Logo white />
           <div className="hidden md:flex items-center gap-8">
             <a href="#services" className="text-sm text-zinc-400 hover:text-white transition">Services</a>
             <a href="#approach" className="text-sm text-zinc-400 hover:text-white transition">Approach</a>
@@ -54,7 +49,21 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden min-h-[90vh] flex items-center">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="w-full h-full object-cover opacity-40"
+          >
+            <source src="/hone-labs-hero.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f]/60 via-[#0a0a0f]/40 to-[#0a0a0f]" />
+        </div>
+        
         {/* Background glow */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-violet-600/20 rounded-full blur-[120px] pointer-events-none" />
         
@@ -350,12 +359,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-zinc-800">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
-              <Sparkles className="w-3 h-3 text-white" />
-            </div>
-            <span className="text-sm font-medium text-white">Hone Labs</span>
-          </div>
+          <Logo white className="scale-75" />
           <p className="text-zinc-500 text-sm">
             © 2026 Hone Labs. All rights reserved.
           </p>
