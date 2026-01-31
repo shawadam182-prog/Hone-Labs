@@ -3,20 +3,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
-  Mic,
-  Brain,
   BookOpen,
   FileText,
   Layers,
-  Sparkles,
-  ArrowRight,
-  Play,
-  Zap,
-  Shield,
-  CheckCircle,
   ExternalLink,
-  Radio,
-  Target,
+  Play,
   Users,
   Compass,
   Package,
@@ -28,7 +19,18 @@ import {
   ShieldCheck,
   Mail,
   UserCircle,
-  Hexagon
+  Hexagon,
+  GraduationCap,
+  Brain,
+  Mic,
+  ChevronDown,
+  BarChart3,
+  Target,
+  Calendar,
+  Lightbulb,
+  Zap,
+  MessageSquare,
+  Radio
 } from 'lucide-react';
 
 // Animated particle/orb component
@@ -94,56 +96,6 @@ const AnimatedGrid = () => (
   </div>
 );
 
-// Playbook card with glass morphism
-const PlaybookCard = ({ 
-  icon: Icon, 
-  title, 
-  description, 
-  gradient,
-  index 
-}: {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  gradient: string;
-  index: number;
-}) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
-      className="group relative"
-    >
-      {/* Hover glow effect */}
-      <div className={`absolute -inset-0.5 ${gradient} rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500`} />
-      
-      <div className="relative p-5 rounded-2xl bg-zinc-900/60 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-500 h-full overflow-hidden">
-        {/* Background shimmer */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
-        />
-        
-        {/* Icon container */}
-        <div className={`relative p-2.5 rounded-xl ${gradient} w-fit mb-3`}>
-          <Icon className="w-5 h-5 text-white" />
-        </div>
-        
-        <h3 className="text-base font-bold text-white mb-1.5 group-hover:text-violet-200 transition-colors">
-          {title}
-        </h3>
-        <p className="text-zinc-400 text-sm leading-relaxed">
-          {description}
-        </p>
-      </div>
-    </motion.div>
-  );
-};
-
 // Hone Hub Logo/Wordmark component
 const HoneHubWordmark = () => (
   <motion.div
@@ -168,190 +120,127 @@ const HoneHubWordmark = () => (
   </motion.div>
 );
 
-// Animated mockup of the Hone Hub UI
-const HoneHubMockup = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const tabs = ['Copilot', 'Roleplay', 'Playbooks'];
+// Accordion Section Data Types
+interface AccordionSubItem {
+  icon?: React.ElementType;
+  title: string;
+  description?: string;
+}
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveTab(prev => (prev + 1) % tabs.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
+interface AccordionSectionData {
+  id: string;
+  icon: React.ElementType;
+  title: string;
+  subtitle: string;
+  gradient: string;
+  items: AccordionSubItem[];
+}
 
+// Accordion Section Component
+const AccordionSection = ({ 
+  section, 
+  isOpen, 
+  onToggle,
+  index 
+}: { 
+  section: AccordionSectionData;
+  isOpen: boolean;
+  onToggle: () => void;
+  index: number;
+}) => {
+  const Icon = section.icon;
+  
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      className="relative"
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="group"
     >
-      {/* Glow behind mockup */}
-      <div className="absolute -inset-4 bg-gradient-to-r from-violet-600/20 via-cyan-500/20 to-violet-600/20 rounded-3xl blur-2xl opacity-60" />
+      {/* Hover glow effect */}
+      <div className={`absolute -inset-0.5 ${section.gradient} rounded-2xl opacity-0 group-hover:opacity-50 blur-xl transition-all duration-500 pointer-events-none`} />
       
-      {/* Main mockup container */}
-      <div className="relative rounded-2xl bg-slate-900/90 backdrop-blur-xl border border-white/10 overflow-hidden shadow-2xl">
-        {/* Top bar */}
-        <div className="flex items-center gap-2 px-4 py-3 bg-slate-800/50 border-b border-white/5">
-          <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-500/80" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-            <div className="w-3 h-3 rounded-full bg-green-500/80" />
+      <div className="relative rounded-2xl bg-zinc-900/60 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-300 overflow-hidden">
+        {/* Header - Clickable */}
+        <button
+          onClick={onToggle}
+          className="w-full p-5 flex items-center gap-4 text-left transition-colors"
+        >
+          {/* Icon container */}
+          <div className={`p-3 rounded-xl ${section.gradient} shrink-0`}>
+            <Icon className="w-6 h-6 text-white" />
           </div>
-          <div className="flex-1 flex justify-center">
-            <div className="px-4 py-1 rounded-full bg-slate-700/50 text-xs text-zinc-400 flex items-center gap-2">
-              <Shield className="w-3 h-3" />
-              the-hone-hub.vercel.app
-            </div>
+          
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-bold text-white group-hover:text-violet-200 transition-colors">
+              {section.title}
+            </h3>
+            <p className="text-sm text-zinc-400 truncate">
+              {section.subtitle}
+            </p>
           </div>
-        </div>
 
-        {/* Tab navigation */}
-        <div className="flex gap-1 p-2 bg-slate-800/30">
-          {tabs.map((tab, i) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(i)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeTab === i 
-                  ? 'bg-violet-600 text-white shadow-lg shadow-violet-500/25' 
-                  : 'text-zinc-400 hover:text-white hover:bg-white/5'
-              }`}
+          {/* Expand/Collapse icon */}
+          <motion.div
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+            className="shrink-0"
+          >
+            <ChevronDown className="w-5 h-5 text-zinc-400" />
+          </motion.div>
+        </button>
+
+        {/* Expandable Content */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="overflow-hidden"
             >
-              {tab}
-            </button>
-          ))}
-        </div>
-
-        {/* Content area */}
-        <div className="p-6 min-h-[280px]">
-          <AnimatePresence mode="wait">
-            {activeTab === 0 && (
-              <motion.div
-                key="copilot"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-4"
-              >
-                {/* Live indicator */}
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/20 border border-red-500/30">
-                    <Radio className="w-3 h-3 text-red-400 animate-pulse" />
-                    <span className="text-xs font-medium text-red-400">LIVE</span>
-                  </div>
-                  <span className="text-xs text-zinc-500">Call in progress • 12:34</span>
-                </div>
-                
-                {/* AI Coaching prompt */}
-                <div className="p-4 rounded-xl bg-gradient-to-r from-violet-500/10 to-cyan-500/10 border border-violet-500/20">
-                  <div className="flex items-start gap-3">
-                    <div className="p-2 rounded-lg bg-violet-500/20">
-                      <Sparkles className="w-4 h-4 text-violet-400" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-zinc-300 font-medium mb-1">AI Suggestion</p>
-                      <p className="text-sm text-zinc-400">"Great discovery! Now probe deeper on their decision timeline..."</p>
-                    </div>
+              <div className="px-5 pb-5 pt-1">
+                <div className="border-t border-white/5 pt-4">
+                  <div className="grid gap-2">
+                    {section.items.map((item, i) => {
+                      const ItemIcon = item.icon;
+                      return (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.05 }}
+                          className="flex items-start gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                        >
+                          {ItemIcon && (
+                            <div className="p-1.5 rounded-lg bg-white/10 shrink-0">
+                              <ItemIcon className="w-4 h-4 text-violet-300" />
+                            </div>
+                          )}
+                          <div className="min-w-0">
+                            <p className="text-sm font-medium text-white">{item.title}</p>
+                            {item.description && (
+                              <p className="text-xs text-zinc-400 mt-0.5">{item.description}</p>
+                            )}
+                          </div>
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 </div>
-
-                {/* Transcript snippet */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-blue-500/30 flex items-center justify-center text-xs text-blue-300">P</div>
-                    <p className="text-xs text-zinc-400">"We need to solve this by Q2..."</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-green-500/30 flex items-center justify-center text-xs text-green-300">Y</div>
-                    <p className="text-xs text-zinc-400">"Tell me more about that timeline..."</p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {activeTab === 1 && (
-              <motion.div
-                key="roleplay"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-4"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <h4 className="text-sm font-medium text-white">AI Roleplay Session</h4>
-                  <span className="px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs">Active</span>
-                </div>
-                
-                <div className="p-4 rounded-xl bg-slate-800/50 border border-white/5">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
-                      <Brain className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-white">Skeptical CFO</p>
-                      <p className="text-xs text-zinc-500">MEDDPICC Discovery</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-zinc-400 italic">"I've seen solutions like this before. What makes you different?"</p>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button className="flex-1 py-2 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                    <Mic className="w-4 h-4" /> Respond
-                  </button>
-                  <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm transition-colors">
-                    Hint
-                  </button>
-                </div>
-              </motion.div>
-            )}
-
-            {activeTab === 2 && (
-              <motion.div
-                key="playbooks"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-3"
-              >
-                <h4 className="text-sm font-medium text-white mb-4">Your Playbooks</h4>
-                
-                {[
-                  { title: 'Discovery Framework', icon: Search, color: 'violet' },
-                  { title: 'Competitor Battlecards', icon: Swords, color: 'cyan' },
-                  { title: 'Objection Handling', icon: ShieldCheck, color: 'emerald' },
-                ].map((item, i) => (
-                  <motion.div
-                    key={item.title}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-white/5 hover:border-white/10 transition-all cursor-pointer group"
-                  >
-                    <div className={`p-2 rounded-lg ${item.color === 'violet' ? 'bg-violet-500/20' : item.color === 'cyan' ? 'bg-cyan-500/20' : 'bg-emerald-500/20'}`}>
-                      <item.icon className={`w-4 h-4 ${item.color === 'violet' ? 'text-violet-400' : item.color === 'cyan' ? 'text-cyan-400' : 'text-emerald-400'}`} />
-                    </div>
-                    <span className="text-sm text-zinc-300 group-hover:text-white transition-colors">{item.title}</span>
-                    <ArrowRight className="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 ml-auto transition-colors" />
-                  </motion.div>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
 };
 
-// Autoplay video on scroll component
-const AutoplayVideo = () => {
+// Autoplay video on scroll component - HERO VERSION
+const HeroVideo = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, margin: "-100px" });
@@ -369,12 +258,25 @@ const AutoplayVideo = () => {
   }, [isInView]);
 
   return (
-    <div ref={containerRef} className="relative max-w-4xl mx-auto">
-      {/* Video glow effect */}
-      <div className="absolute -inset-4 bg-gradient-to-r from-violet-600/20 via-cyan-500/20 to-violet-600/20 rounded-3xl blur-2xl opacity-60" />
+    <motion.div 
+      ref={containerRef} 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="relative max-w-5xl mx-auto"
+    >
+      {/* Video glow effect - larger for hero */}
+      <div className="absolute -inset-6 bg-gradient-to-r from-violet-600/30 via-cyan-500/30 to-violet-600/30 rounded-3xl blur-3xl opacity-70" />
       
       {/* Video container */}
       <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/90">
+        {/* Play badge */}
+        <div className="absolute top-4 left-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-sm border border-white/10">
+          <Play className="w-3 h-3 text-violet-400" />
+          <span className="text-xs font-medium text-white">Platform Demo</span>
+        </div>
+        
         <video
           ref={videoRef}
           className="w-full aspect-video"
@@ -388,7 +290,7 @@ const AutoplayVideo = () => {
           Your browser does not support the video tag.
         </video>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -410,70 +312,73 @@ const MethodologyBadge = ({ name, delay }: { name: string; delay: number }) => (
 export default function PlatformSection() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
-  // 10 Playbook sections
-  const playbookSections = [
+  // Accordion sections data
+  const accordionSections: AccordionSectionData[] = [
     {
-      icon: Compass,
-      title: 'Mission & Values',
-      description: 'Align every rep to your company\'s core principles',
+      id: 'training',
+      icon: GraduationCap,
+      title: 'Training Academy',
+      subtitle: '7 Modules • 39 Interactive Lessons',
       gradient: 'bg-gradient-to-br from-violet-600 to-violet-500',
+      items: [
+        { icon: BookOpen, title: '7 Modules covering core sales skills' },
+        { icon: Layers, title: '39 Interactive lessons' },
+        { icon: Target, title: 'Progress tracking & quizzes' },
+        { icon: MessageSquare, title: 'AI-generated audio summaries' },
+      ],
     },
     {
-      icon: Package,
-      title: 'Portfolio Overview',
-      description: 'Product knowledge at their fingertips',
+      id: 'playbook',
+      icon: FileText,
+      title: 'Playbook',
+      subtitle: '10 Modules • Your Single Source of Truth',
       gradient: 'bg-gradient-to-br from-cyan-600 to-cyan-500',
+      items: [
+        { icon: Compass, title: 'Mission & Values' },
+        { icon: Package, title: 'Portfolio Overview' },
+        { icon: GitBranch, title: 'Sales Methodology' },
+        { icon: ListChecks, title: 'Sales Process' },
+        { icon: Search, title: 'Discovery Framework' },
+        { icon: Handshake, title: 'Mutual Success Plan' },
+        { icon: Swords, title: 'Competitor Battlecards' },
+        { icon: ShieldCheck, title: 'Objection Handling' },
+        { icon: Mail, title: 'Outreach Scripts' },
+        { icon: UserCircle, title: 'ICP & Personas' },
+      ],
     },
     {
-      icon: GitBranch,
-      title: 'Sales Methodology',
-      description: 'Your chosen framework, embedded in every interaction',
+      id: 'coaching',
+      icon: Brain,
+      title: 'Coaching',
+      subtitle: 'AI-Powered Practice & Real-Time Guidance',
       gradient: 'bg-gradient-to-br from-emerald-600 to-emerald-500',
+      items: [
+        { icon: BarChart3, title: 'Skill Gap Analysis', description: 'Identify where reps need work' },
+        { icon: Zap, title: 'Test Me', description: 'Quick-fire knowledge quizzes' },
+        { icon: Mic, title: 'AI Roleplay', description: 'Practice against AI personas' },
+        { icon: Radio, title: 'Live Copilot', description: 'Real-time guidance during calls' },
+      ],
     },
     {
-      icon: ListChecks,
-      title: 'Sales Process',
-      description: 'Stage-by-stage guidance for consistent execution',
+      id: 'team',
+      icon: Users,
+      title: 'Team Management',
+      subtitle: 'Performance Tracking & Manager Tools',
       gradient: 'bg-gradient-to-br from-amber-600 to-amber-500',
-    },
-    {
-      icon: Search,
-      title: 'Discovery Framework',
-      description: 'Structured questions that uncover real pain',
-      gradient: 'bg-gradient-to-br from-rose-600 to-rose-500',
-    },
-    {
-      icon: Handshake,
-      title: 'Mutual Success Plan',
-      description: 'Collaborative roadmaps that close deals',
-      gradient: 'bg-gradient-to-br from-purple-600 to-purple-500',
-    },
-    {
-      icon: Swords,
-      title: 'Competitor Battlecards',
-      description: 'Kill shots and win strategies for every rival',
-      gradient: 'bg-gradient-to-br from-red-600 to-red-500',
-    },
-    {
-      icon: ShieldCheck,
-      title: 'Objection Handling',
-      description: 'Psychological reframes for common hurdles',
-      gradient: 'bg-gradient-to-br from-orange-600 to-orange-500',
-    },
-    {
-      icon: Mail,
-      title: 'Outreach Scripts',
-      description: 'Proven messaging for cold and warm outreach',
-      gradient: 'bg-gradient-to-br from-teal-600 to-teal-500',
-    },
-    {
-      icon: UserCircle,
-      title: 'ICP & Personas',
-      description: 'Know exactly who you\'re selling to',
-      gradient: 'bg-gradient-to-br from-indigo-600 to-indigo-500',
+      items: [
+        { icon: Users, title: 'Team Dashboard', description: 'See performance across all reps' },
+        { icon: Calendar, title: 'Daily Plans', description: 'Assign focus areas and tasks' },
+        { icon: BarChart3, title: 'Analytics', description: 'Track improvement over time' },
+        { icon: Lightbulb, title: 'Manager Insights', description: 'Coaching recommendations' },
+      ],
     },
   ];
+
+  const handleToggle = (sectionId: string) => {
+    setOpenSection(openSection === sectionId ? null : sectionId);
+  };
 
   const methodologies = [
     'MEDDPICC', 'SPICED', 'BANT', 'Challenger', 'SPIN', 
@@ -522,69 +427,37 @@ export default function PlatformSection() {
           </p>
         </motion.div>
 
-        {/* Playbook Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-10"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-300 text-sm mb-4">
-            <BookOpen className="w-4 h-4" />
-            Complete Playbook System
-          </div>
-          <h3 className="text-2xl md:text-3xl font-bold text-white">
-            10 Modules. One Source of Truth.
-          </h3>
-        </motion.div>
-
-        {/* Playbook cards - 2 columns of 5 */}
+        {/* Accordion Sections - 2 column grid */}
         <div className="grid md:grid-cols-2 gap-4 mb-16">
-          {playbookSections.map((section, i) => (
-            <PlaybookCard key={section.title} {...section} index={i} />
+          {accordionSections.map((section, i) => (
+            <AccordionSection
+              key={section.id}
+              section={section}
+              isOpen={openSection === section.id}
+              onToggle={() => handleToggle(section.id)}
+              index={i}
+            />
           ))}
         </div>
 
-        {/* Interactive mockup */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16"
-        >
-          <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
-              AI-Powered Delivery
-            </h3>
-            <p className="text-zinc-400">
-              Your playbook comes alive through Live Copilot, AI Roleplay, and instant search
-            </p>
-          </div>
-          <div className="max-w-2xl mx-auto">
-            <HoneHubMockup />
-          </div>
-        </motion.div>
-
-        {/* Platform Video Showcase */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-20"
-        >
-          <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+        {/* Hero Video Section */}
+        <div className="mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <h3 className="text-2xl md:text-4xl font-bold text-white mb-3">
               See the Platform in Action
             </h3>
-            <p className="text-zinc-400">
-              A quick tour of what Hone Hub can do for your team
+            <p className="text-zinc-400 text-lg">
+              Watch how Hone Hub transforms your sales team's performance
             </p>
-          </div>
+          </motion.div>
           
-          <AutoplayVideo />
-        </motion.div>
+          <HeroVideo />
+        </div>
 
         {/* Methodologies */}
         <motion.div
@@ -624,7 +497,7 @@ export default function PlatformSection() {
             className="flex items-center gap-2 px-6 py-3 border border-zinc-700 hover:border-violet-500/50 hover:bg-violet-500/5 text-white font-medium rounded-lg transition-all"
           >
             <Play className="w-4 h-4" />
-            See It In Action
+            Book a Demo
           </a>
         </motion.div>
 
