@@ -315,6 +315,48 @@ const HoneHubMockup = () => {
   );
 };
 
+// Autoplay video on scroll component
+const AutoplayVideo = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: false, margin: "-100px" });
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isInView) {
+        videoRef.current.play().catch(() => {
+          // Autoplay may be blocked by browser, that's ok
+        });
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isInView]);
+
+  return (
+    <div ref={containerRef} className="relative max-w-4xl mx-auto">
+      {/* Video glow effect */}
+      <div className="absolute -inset-4 bg-gradient-to-r from-violet-600/20 via-cyan-500/20 to-violet-600/20 rounded-3xl blur-2xl opacity-60" />
+      
+      {/* Video container */}
+      <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/90">
+        <video
+          ref={videoRef}
+          className="w-full aspect-video"
+          controls
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        >
+          <source src="/hone-hub-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  );
+};
+
 // Methodology badge component
 const MethodologyBadge = ({ name, delay }: { name: string; delay: number }) => (
   <motion.div
@@ -460,23 +502,7 @@ export default function PlatformSection() {
             </p>
           </div>
           
-          <div className="relative max-w-4xl mx-auto">
-            {/* Video glow effect */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-violet-600/20 via-cyan-500/20 to-violet-600/20 rounded-3xl blur-2xl opacity-60" />
-            
-            {/* Video container */}
-            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/90">
-              <video
-                className="w-full aspect-video"
-                controls
-                poster="/hone-hub-poster.jpg"
-                preload="metadata"
-              >
-                <source src="/hone-hub-video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </div>
+          <AutoplayVideo />
         </motion.div>
 
         {/* Methodologies */}
