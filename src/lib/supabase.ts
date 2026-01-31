@@ -24,9 +24,10 @@ export interface NewsletterSubscriber {
 }
 
 // Submit a lead from contact form
+// Uses website_leads table in The Hone Hub Supabase project
 export async function submitLead(lead: Omit<Lead, 'id' | 'created_at'>) {
   const { data, error } = await supabase
-    .from('leads')
+    .from('website_leads')
     .insert([{ ...lead, source: 'website' }])
     .select()
     .single();
@@ -36,9 +37,10 @@ export async function submitLead(lead: Omit<Lead, 'id' | 'created_at'>) {
 }
 
 // Subscribe to newsletter
+// Uses website_newsletter table in The Hone Hub Supabase project
 export async function subscribeNewsletter(email: string) {
   const { data, error } = await supabase
-    .from('newsletter_subscribers')
+    .from('website_newsletter')
     .insert([{ email }])
     .select()
     .single();
