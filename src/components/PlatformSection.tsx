@@ -484,7 +484,7 @@ export default function PlatformSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="https://the-hone-hub.vercel.app"
+            href="https://honehub.app"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-2 px-6 py-3 bg-violet-600 hover:bg-violet-500 text-white font-medium rounded-lg transition-all glow-hover"
