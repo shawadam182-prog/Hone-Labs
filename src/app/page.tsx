@@ -327,7 +327,7 @@ export default function Home() {
                 No pitch deck. Just a conversation about where you are and where you want to be.
               </p>
               <p className="text-zinc-500 text-sm">
-                Or email: <a href="mailto:hello@honelabs.io" className="text-violet-400 hover:text-violet-300 transition">hello@honelabs.io</a>
+                Or email: <a href="mailto:hello@honelab.pro" className="text-violet-400 hover:text-violet-300 transition">hello@honelab.pro</a>
               </p>
             </div>
             <div className="p-6 rounded-xl bg-zinc-900/50 border border-zinc-800">
